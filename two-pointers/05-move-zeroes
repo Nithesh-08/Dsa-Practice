@@ -1,0 +1,42 @@
+To solve this problem we use 
+Fast and Slow pointers for --> Optimal approach TC:O(N) SC:O(1)
+Count Zeroes + ReWrite for --> Better approach TC:O(N) SC:O(1)
+Extra Array for --> Brute Force approach TC:O(N) SC:O(N)
+
+BRUTE:
+--------
+n=list(map(int,input().split()))
+result=[]
+for num in n:
+    if num!=0:
+       result.append(num)
+while len(result) < len(n):
+    result.append(0)
+print(result)
+
+BETTER:
+------------
+arr = list(map(int, input().split()))
+pos = 0
+for num in arr:
+    if num != 0:
+        arr[pos] = num
+        pos += 1
+while pos < len(arr):
+    arr[pos] = 0
+    pos += 1
+print(arr)
+
+OPTIMAL
+---------------
+arr = list(map(int, input().split()))
+i = 0
+j = 0
+while j < len(arr):
+    if arr[j] == 0:
+        j += 1
+    else:
+        arr[i], arr[j] = arr[j], arr[i]
+        i += 1
+        j += 1
+print(arr)
