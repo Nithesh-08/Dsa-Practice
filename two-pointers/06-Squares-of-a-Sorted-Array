@@ -1,0 +1,50 @@
+Brute Force Approach can be using --> First we square array and then we sort it
+Optimal Approach can be using --> Two Pointers
+
+## Input:
+-4 -1 0 3 10
+
+Output:
+[0, 1, 9, 16, 100]
+
+Brute
+----------------------------
+n = list(map(int, input().split()))
+for i in range(len(n)):
+    n[i] = n[i] ** 2
+n.sort()
+print(n)
+
+TC:O(NlogN)
+SC:O(1)
+
+
+Optimal
+--------------------------------------
+n = list(map(int, input().split()))
+result = [0] * len(n)
+left = 0
+right = len(n) - 1
+k = len(n) - 1
+while left <= right:
+     if abs(n[left]) > abs(n[right]):
+        result[k] = n[left] ** 2
+        left += 1
+    else:
+        result[k] = n[right] ** 2
+        right -= 1
+    k -= 1
+print(result)
+
+TC:O(N)
+SC:O(N) because result is required
+
+
+Core pattern:
+left  →        ← right
+       ↓
+compare absolute values
+       ↓
+put larger square at result[k]
+       ↓
+k--
