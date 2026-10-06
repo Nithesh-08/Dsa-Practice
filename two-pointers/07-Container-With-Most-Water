@@ -48,3 +48,11 @@ print(max_area)
 
 TC:O(n)
 SC:O(1)
+
+Note:
+What about sorting / HashMap / binary search will thwy work here?
+They don't give a useful better solution here.
+- Sorting → destroys the original positions, and positions determine the width.
+- HashMap → no useful relationship to store; the answer depends on two positions + their heights.
+- Binary Search → there's no monotonic property that lets us eliminate half the candidates.
+- Prefix/suffix arrays → possible to construct other formulations, but they don't beat the O(n) two-pointer solution and generally use extra space.
