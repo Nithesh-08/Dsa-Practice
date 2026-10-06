@@ -1,0 +1,50 @@
+This problem can be solved in both ways 
+Brute force appproach will be --> using 2 nested loops 
+Optimal approach can be --> using 2 pointers
+
+#Pattern found:
+Area = width × height
+     where
+     width = right - left
+     height = min(height[left], height[right])
+   update max_area
+   move pointers
+
+
+Brute Force Approach:
+----------------------------
+n = list(map(int, input().split()))
+max_area = 0
+for i in range(len(n)):
+    for j in range(i + 1, len(n)):
+        width = j - i
+        height = min(n[i], n[j])
+        area = width * height
+        if area > max_area:
+            max_area = area
+print(max_area)
+
+TC:O(n²)
+SC:O(1)
+
+
+Optimal Approach:
+----------------------------
+n = list(map(int, input().split()))
+left = 0
+right = len(n) - 1
+max_area = 0
+while left < right:
+    width = right - left
+    height = min(n[left], n[right])
+    area = width * height
+    if area > max_area:
+        max_area = area
+    if n[left] < n[right]:
+        left += 1
+    else:
+        right -= 1
+print(max_area)
+
+TC:O(n)
+SC:O(1)
