@@ -1,0 +1,104 @@
+To Solve this problem we have 3 approaches 
+BRUTE FORCE APPROACH:NESTED LOOPS
+BETTER APPROACH:HASH SET
+OPTIMAL APPROACH:SORTING + TWO POINTERS
+
+Core Pattern:
+Sort the array
+      ↓
+Fix one element i
+      ↓
+j = i + 1
+k = len(n) - 1
+      ↓
+while j < k
+      ↓
+sum = n[i] + n[j] + n[k]
+      ↓
+┌──────────────┬──────────────┬──────────────┐
+│ sum < 0      │ sum > 0      │ sum == 0     │
+│ j++          │ k--          │ found        │
+└──────────────┴──────────────┴──────────────┘
+                                      ↓
+                              move j and k
+                                      ↓
+                              skip duplicates
+                                      ↓
+                               next i
+
+
+BRUTE FORCE APPROACH:
+-----------------------------------
+n = list(map(int, input().split()))
+n.sort()
+result = []
+for i in range(len(n)):
+    for j in range(i + 1, len(n)):
+        for k in range(j + 1, len(n)):
+            if n[i] + n[j] + n[k] == 0:
+                triplet = (n[i], n[j], n[k])
+             if triplet not in result:
+                    result.append(triplet)
+print(result)
+
+TC:O(n³)
+SC:O(1)
+
+
+
+BETTER APPROACH:
+----------------------------------------------
+n = list(map(int, input().split()))
+result = set()
+for i in range(len(n)):
+    seen = set()
+    for j in range(i + 1, len(n)):
+        target = -n[i] - n[j]
+        if target in seen:
+            triplet = tuple(sorted([n[i], n[j], target]))
+            result.add(triplet)
+        seen.add(n[j])
+print(result)
+
+TC:O(n²)
+SC:O(n)
+
+
+OPTIMAL APPROACH:
+----------------------------------------------------
+n = list(map(int, input().split()))
+
+n.sort()
+result = []
+
+for i in range(len(n)):
+    if i > 0 and n[i] == n[i - 1]:
+        continue
+    j = i + 1
+    k = len(n) - 1
+    while j < k:
+
+        total = n[i] + n[j] + n[k]
+
+        if total < 0:
+            j += 1
+
+        elif total > 0:
+            k -= 1
+
+        else:
+            result.append([n[i], n[j], n[k]])
+
+            j += 1
+            k -= 1
+
+            while j < k and n[j] == n[j - 1]:
+                j += 1
+
+            while j < k and n[k] == n[k + 1]:
+                k -= 1
+
+print(result)
+
+TC:O(n²)
+SC:0(1)
